@@ -1,0 +1,932 @@
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.main,"ax",%progbits
+  20              		.align	2
+  21              		.global	main
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	main, %function
+  25              	main:
+  26              	.LFB32:
+  27              		.file 1 "main.c"
+   1:main.c        **** #include "project.h"
+   2:main.c        **** 
+   3:main.c        **** int main(void)
+   4:main.c        **** {
+  28              		.loc 1 4 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 70B5     		push	{r4, r5, r6, lr}
+  33              		.cfi_def_cfa_offset 16
+  34              		.cfi_offset 4, -16
+  35              		.cfi_offset 5, -12
+  36              		.cfi_offset 6, -8
+  37              		.cfi_offset 14, -4
+   5:main.c        ****     CyGlobalIntEnable; 
+  38              		.loc 1 5 0
+  39              		.syntax divided
+  40              	@ 5 "main.c" 1
+  41 0002 62B6     		CPSIE   i
+  42              	@ 0 "" 2
+  43              	.LVL0:
+   6:main.c        **** 
+   7:main.c        ****     uint8 color_state = 0;
+   8:main.c        ****     uint8 last_button_state = 1;
+  44              		.loc 1 8 0
+  45              		.thumb
+  46              		.syntax unified
+  47 0004 0125     		movs	r5, #1
+   7:main.c        ****     uint8 last_button_state = 1;
+  48              		.loc 1 7 0
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 2
+
+
+  49 0006 0026     		movs	r6, #0
+  50 0008 00E0     		b	.L2
+  51              	.LVL1:
+  52              	.L3:
+  53 000a 2500     		movs	r5, r4
+  54              	.LVL2:
+  55              	.L2:
+  56              	.LBB2:
+   9:main.c        **** 
+  10:main.c        ****     for(;;)
+  11:main.c        ****     {
+  12:main.c        ****         uint8 current_button_state = Button_Read();
+  57              		.loc 1 12 0
+  58 000c FFF7FEFF 		bl	Button_Read
+  59              	.LVL3:
+  60 0010 0400     		movs	r4, r0
+  61              	.LVL4:
+  13:main.c        **** 
+  14:main.c        ****         if (last_button_state == 1 && current_button_state == 0)
+  62              		.loc 1 14 0
+  63 0012 012D     		cmp	r5, #1
+  64 0014 F9D1     		bne	.L3
+  65              		.loc 1 14 0 is_stmt 0 discriminator 1
+  66 0016 0028     		cmp	r0, #0
+  67 0018 F7D1     		bne	.L3
+  15:main.c        ****         {
+  16:main.c        ****             color_state++;
+  68              		.loc 1 16 0 is_stmt 1
+  69 001a 0136     		adds	r6, r6, #1
+  70              	.LVL5:
+  71 001c F6B2     		uxtb	r6, r6
+  72              	.LVL6:
+  17:main.c        ****             if (color_state > 6) color_state = 0;
+  73              		.loc 1 17 0
+  74 001e 062E     		cmp	r6, #6
+  75 0020 00D9     		bls	.L4
+  76 0022 0026     		movs	r6, #0
+  77              	.LVL7:
+  78              	.L4:
+  18:main.c        **** 
+  19:main.c        ****             LED_Red_Write(1);
+  79              		.loc 1 19 0
+  80 0024 0120     		movs	r0, #1
+  81              	.LVL8:
+  82 0026 FFF7FEFF 		bl	LED_Red_Write
+  83              	.LVL9:
+  20:main.c        ****             LED_Green_Write(1);
+  84              		.loc 1 20 0
+  85 002a 0120     		movs	r0, #1
+  86 002c FFF7FEFF 		bl	LED_Green_Write
+  87              	.LVL10:
+  21:main.c        ****             LED_Blue_Write(1);
+  88              		.loc 1 21 0
+  89 0030 0120     		movs	r0, #1
+  90 0032 FFF7FEFF 		bl	LED_Blue_Write
+  91              	.LVL11:
+  22:main.c        **** 
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 3
+
+
+  23:main.c        ****             switch(color_state)
+  92              		.loc 1 23 0
+  93 0036 062E     		cmp	r6, #6
+  94 0038 26D8     		bhi	.L5
+  95 003a B300     		lsls	r3, r6, #2
+  96 003c 144A     		ldr	r2, .L14
+  97 003e D358     		ldr	r3, [r2, r3]
+  98 0040 9F46     		mov	pc, r3
+  99              		.section	.rodata
+ 100              		.align	2
+ 101              	.L7:
+ 102 0000 88000000 		.word	.L5
+ 103 0004 42000000 		.word	.L6
+ 104 0008 4A000000 		.word	.L8
+ 105 000c 52000000 		.word	.L9
+ 106 0010 5A000000 		.word	.L10
+ 107 0014 68000000 		.word	.L11
+ 108 0018 76000000 		.word	.L12
+ 109              		.section	.text.main
+ 110              	.L6:
+  24:main.c        ****             {
+  25:main.c        ****                 case 1:
+  26:main.c        ****                     LED_Red_Write(0);
+ 111              		.loc 1 26 0
+ 112 0042 0020     		movs	r0, #0
+ 113 0044 FFF7FEFF 		bl	LED_Red_Write
+ 114              	.LVL12:
+  27:main.c        ****                     break;
+ 115              		.loc 1 27 0
+ 116 0048 1EE0     		b	.L5
+ 117              	.L8:
+  28:main.c        ****                 case 2:
+  29:main.c        ****                     LED_Green_Write(0);
+ 118              		.loc 1 29 0
+ 119 004a 0020     		movs	r0, #0
+ 120 004c FFF7FEFF 		bl	LED_Green_Write
+ 121              	.LVL13:
+  30:main.c        ****                     break;
+ 122              		.loc 1 30 0
+ 123 0050 1AE0     		b	.L5
+ 124              	.L9:
+  31:main.c        ****                 case 3:
+  32:main.c        ****                     LED_Blue_Write(0);
+ 125              		.loc 1 32 0
+ 126 0052 0020     		movs	r0, #0
+ 127 0054 FFF7FEFF 		bl	LED_Blue_Write
+ 128              	.LVL14:
+  33:main.c        ****                     break;
+ 129              		.loc 1 33 0
+ 130 0058 16E0     		b	.L5
+ 131              	.L10:
+  34:main.c        ****                 case 4:
+  35:main.c        ****                     LED_Red_Write(0);
+ 132              		.loc 1 35 0
+ 133 005a 0020     		movs	r0, #0
+ 134 005c FFF7FEFF 		bl	LED_Red_Write
+ 135              	.LVL15:
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 4
+
+
+  36:main.c        ****                     LED_Blue_Write(0);
+ 136              		.loc 1 36 0
+ 137 0060 0020     		movs	r0, #0
+ 138 0062 FFF7FEFF 		bl	LED_Blue_Write
+ 139              	.LVL16:
+  37:main.c        ****                     break;
+ 140              		.loc 1 37 0
+ 141 0066 0FE0     		b	.L5
+ 142              	.L11:
+  38:main.c        ****                 case 5:
+  39:main.c        ****                     LED_Red_Write(0);
+ 143              		.loc 1 39 0
+ 144 0068 0020     		movs	r0, #0
+ 145 006a FFF7FEFF 		bl	LED_Red_Write
+ 146              	.LVL17:
+  40:main.c        ****                     LED_Green_Write(0);
+ 147              		.loc 1 40 0
+ 148 006e 0020     		movs	r0, #0
+ 149 0070 FFF7FEFF 		bl	LED_Green_Write
+ 150              	.LVL18:
+  41:main.c        ****                     break;
+ 151              		.loc 1 41 0
+ 152 0074 08E0     		b	.L5
+ 153              	.L12:
+  42:main.c        ****                 case 6:
+  43:main.c        ****                     LED_Red_Write(0);
+ 154              		.loc 1 43 0
+ 155 0076 0020     		movs	r0, #0
+ 156 0078 FFF7FEFF 		bl	LED_Red_Write
+ 157              	.LVL19:
+  44:main.c        ****                     LED_Green_Write(0);
+ 158              		.loc 1 44 0
+ 159 007c 0020     		movs	r0, #0
+ 160 007e FFF7FEFF 		bl	LED_Green_Write
+ 161              	.LVL20:
+  45:main.c        ****                     LED_Blue_Write(0);
+ 162              		.loc 1 45 0
+ 163 0082 0020     		movs	r0, #0
+ 164 0084 FFF7FEFF 		bl	LED_Blue_Write
+ 165              	.LVL21:
+ 166              	.L5:
+  46:main.c        ****                     break;
+  47:main.c        ****                 case 0:
+  48:main.c        ****                 default:
+  49:main.c        ****                     break;
+  50:main.c        ****             }
+  51:main.c        ****             
+  52:main.c        ****             CyDelay(50);
+ 167              		.loc 1 52 0
+ 168 0088 3220     		movs	r0, #50
+ 169 008a FFF7FEFF 		bl	CyDelay
+ 170              	.LVL22:
+ 171 008e BCE7     		b	.L3
+ 172              	.L15:
+ 173              		.align	2
+ 174              	.L14:
+ 175 0090 00000000 		.word	.L7
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 5
+
+
+ 176              	.LBE2:
+ 177              		.cfi_endproc
+ 178              	.LFE32:
+ 179              		.size	main, .-main
+ 180              		.text
+ 181              	.Letext0:
+ 182              		.file 2 "Generated_Source\\PSoC4/Button.h"
+ 183              		.file 3 "Generated_Source\\PSoC4/LED_Red.h"
+ 184              		.file 4 "Generated_Source\\PSoC4/LED_Green.h"
+ 185              		.file 5 "Generated_Source\\PSoC4/LED_Blue.h"
+ 186              		.file 6 "Generated_Source\\PSoC4/CyLib.h"
+ 187              		.file 7 "Generated_Source\\PSoC4/cytypes.h"
+ 188              		.section	.debug_info,"",%progbits
+ 189              	.Ldebug_info0:
+ 190 0000 2F020000 		.4byte	0x22f
+ 191 0004 0400     		.2byte	0x4
+ 192 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 193 000a 04       		.byte	0x4
+ 194 000b 01       		.uleb128 0x1
+ 195 000c 17010000 		.4byte	.LASF22
+ 196 0010 0C       		.byte	0xc
+ 197 0011 DF000000 		.4byte	.LASF23
+ 198 0015 8F000000 		.4byte	.LASF24
+ 199 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 200 001d 00000000 		.4byte	0
+ 201 0021 00000000 		.4byte	.Ldebug_line0
+ 202 0025 02       		.uleb128 0x2
+ 203 0026 01       		.byte	0x1
+ 204 0027 06       		.byte	0x6
+ 205 0028 B8010000 		.4byte	.LASF0
+ 206 002c 02       		.uleb128 0x2
+ 207 002d 01       		.byte	0x1
+ 208 002e 08       		.byte	0x8
+ 209 002f 1B000000 		.4byte	.LASF1
+ 210 0033 02       		.uleb128 0x2
+ 211 0034 02       		.byte	0x2
+ 212 0035 05       		.byte	0x5
+ 213 0036 DE010000 		.4byte	.LASF2
+ 214 003a 02       		.uleb128 0x2
+ 215 003b 02       		.byte	0x2
+ 216 003c 07       		.byte	0x7
+ 217 003d A5010000 		.4byte	.LASF3
+ 218 0041 02       		.uleb128 0x2
+ 219 0042 04       		.byte	0x4
+ 220 0043 05       		.byte	0x5
+ 221 0044 E6000000 		.4byte	.LASF4
+ 222 0048 02       		.uleb128 0x2
+ 223 0049 04       		.byte	0x4
+ 224 004a 07       		.byte	0x7
+ 225 004b EF000000 		.4byte	.LASF5
+ 226 004f 02       		.uleb128 0x2
+ 227 0050 08       		.byte	0x8
+ 228 0051 05       		.byte	0x5
+ 229 0052 00000000 		.4byte	.LASF6
+ 230 0056 02       		.uleb128 0x2
+ 231 0057 08       		.byte	0x8
+ 232 0058 07       		.byte	0x7
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 6
+
+
+ 233 0059 5D000000 		.4byte	.LASF7
+ 234 005d 03       		.uleb128 0x3
+ 235 005e 04       		.byte	0x4
+ 236 005f 05       		.byte	0x5
+ 237 0060 696E7400 		.ascii	"int\000"
+ 238 0064 02       		.uleb128 0x2
+ 239 0065 04       		.byte	0x4
+ 240 0066 07       		.byte	0x7
+ 241 0067 0E000000 		.4byte	.LASF8
+ 242 006b 04       		.uleb128 0x4
+ 243 006c 42000000 		.4byte	.LASF25
+ 244 0070 07       		.byte	0x7
+ 245 0071 FB01     		.2byte	0x1fb
+ 246 0073 2C000000 		.4byte	0x2c
+ 247 0077 02       		.uleb128 0x2
+ 248 0078 04       		.byte	0x4
+ 249 0079 04       		.byte	0x4
+ 250 007a 74000000 		.4byte	.LASF9
+ 251 007e 02       		.uleb128 0x2
+ 252 007f 08       		.byte	0x8
+ 253 0080 04       		.byte	0x4
+ 254 0081 01010000 		.4byte	.LASF10
+ 255 0085 02       		.uleb128 0x2
+ 256 0086 01       		.byte	0x1
+ 257 0087 08       		.byte	0x8
+ 258 0088 8A000000 		.4byte	.LASF11
+ 259 008c 02       		.uleb128 0x2
+ 260 008d 04       		.byte	0x4
+ 261 008e 07       		.byte	0x7
+ 262 008f F4010000 		.4byte	.LASF12
+ 263 0093 02       		.uleb128 0x2
+ 264 0094 08       		.byte	0x8
+ 265 0095 04       		.byte	0x4
+ 266 0096 D2010000 		.4byte	.LASF13
+ 267 009a 05       		.uleb128 0x5
+ 268 009b 35000000 		.4byte	.LASF26
+ 269 009f 01       		.byte	0x1
+ 270 00a0 03       		.byte	0x3
+ 271 00a1 5D000000 		.4byte	0x5d
+ 272 00a5 00000000 		.4byte	.LFB32
+ 273 00a9 94000000 		.4byte	.LFE32-.LFB32
+ 274 00ad 01       		.uleb128 0x1
+ 275 00ae 9C       		.byte	0x9c
+ 276 00af FB010000 		.4byte	0x1fb
+ 277 00b3 06       		.uleb128 0x6
+ 278 00b4 29000000 		.4byte	.LASF14
+ 279 00b8 01       		.byte	0x1
+ 280 00b9 07       		.byte	0x7
+ 281 00ba 6B000000 		.4byte	0x6b
+ 282 00be 00000000 		.4byte	.LLST0
+ 283 00c2 06       		.uleb128 0x6
+ 284 00c3 CD000000 		.4byte	.LASF15
+ 285 00c7 01       		.byte	0x1
+ 286 00c8 08       		.byte	0x8
+ 287 00c9 6B000000 		.4byte	0x6b
+ 288 00cd 2A000000 		.4byte	.LLST1
+ 289 00d1 07       		.uleb128 0x7
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 7
+
+
+ 290 00d2 0C000000 		.4byte	.LBB2
+ 291 00d6 88000000 		.4byte	.LBE2-.LBB2
+ 292 00da 06       		.uleb128 0x6
+ 293 00db 48000000 		.4byte	.LASF16
+ 294 00df 01       		.byte	0x1
+ 295 00e0 0C       		.byte	0xc
+ 296 00e1 6B000000 		.4byte	0x6b
+ 297 00e5 49000000 		.4byte	.LLST2
+ 298 00e9 08       		.uleb128 0x8
+ 299 00ea 10000000 		.4byte	.LVL3
+ 300 00ee FB010000 		.4byte	0x1fb
+ 301 00f2 09       		.uleb128 0x9
+ 302 00f3 2A000000 		.4byte	.LVL9
+ 303 00f7 06020000 		.4byte	0x206
+ 304 00fb 05010000 		.4byte	0x105
+ 305 00ff 0A       		.uleb128 0xa
+ 306 0100 01       		.uleb128 0x1
+ 307 0101 50       		.byte	0x50
+ 308 0102 01       		.uleb128 0x1
+ 309 0103 31       		.byte	0x31
+ 310 0104 00       		.byte	0
+ 311 0105 09       		.uleb128 0x9
+ 312 0106 30000000 		.4byte	.LVL10
+ 313 010a 11020000 		.4byte	0x211
+ 314 010e 18010000 		.4byte	0x118
+ 315 0112 0A       		.uleb128 0xa
+ 316 0113 01       		.uleb128 0x1
+ 317 0114 50       		.byte	0x50
+ 318 0115 01       		.uleb128 0x1
+ 319 0116 31       		.byte	0x31
+ 320 0117 00       		.byte	0
+ 321 0118 09       		.uleb128 0x9
+ 322 0119 36000000 		.4byte	.LVL11
+ 323 011d 1C020000 		.4byte	0x21c
+ 324 0121 2B010000 		.4byte	0x12b
+ 325 0125 0A       		.uleb128 0xa
+ 326 0126 01       		.uleb128 0x1
+ 327 0127 50       		.byte	0x50
+ 328 0128 01       		.uleb128 0x1
+ 329 0129 31       		.byte	0x31
+ 330 012a 00       		.byte	0
+ 331 012b 09       		.uleb128 0x9
+ 332 012c 48000000 		.4byte	.LVL12
+ 333 0130 06020000 		.4byte	0x206
+ 334 0134 3E010000 		.4byte	0x13e
+ 335 0138 0A       		.uleb128 0xa
+ 336 0139 01       		.uleb128 0x1
+ 337 013a 50       		.byte	0x50
+ 338 013b 01       		.uleb128 0x1
+ 339 013c 30       		.byte	0x30
+ 340 013d 00       		.byte	0
+ 341 013e 09       		.uleb128 0x9
+ 342 013f 50000000 		.4byte	.LVL13
+ 343 0143 11020000 		.4byte	0x211
+ 344 0147 51010000 		.4byte	0x151
+ 345 014b 0A       		.uleb128 0xa
+ 346 014c 01       		.uleb128 0x1
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 8
+
+
+ 347 014d 50       		.byte	0x50
+ 348 014e 01       		.uleb128 0x1
+ 349 014f 30       		.byte	0x30
+ 350 0150 00       		.byte	0
+ 351 0151 09       		.uleb128 0x9
+ 352 0152 58000000 		.4byte	.LVL14
+ 353 0156 1C020000 		.4byte	0x21c
+ 354 015a 64010000 		.4byte	0x164
+ 355 015e 0A       		.uleb128 0xa
+ 356 015f 01       		.uleb128 0x1
+ 357 0160 50       		.byte	0x50
+ 358 0161 01       		.uleb128 0x1
+ 359 0162 30       		.byte	0x30
+ 360 0163 00       		.byte	0
+ 361 0164 09       		.uleb128 0x9
+ 362 0165 60000000 		.4byte	.LVL15
+ 363 0169 06020000 		.4byte	0x206
+ 364 016d 77010000 		.4byte	0x177
+ 365 0171 0A       		.uleb128 0xa
+ 366 0172 01       		.uleb128 0x1
+ 367 0173 50       		.byte	0x50
+ 368 0174 01       		.uleb128 0x1
+ 369 0175 30       		.byte	0x30
+ 370 0176 00       		.byte	0
+ 371 0177 09       		.uleb128 0x9
+ 372 0178 66000000 		.4byte	.LVL16
+ 373 017c 1C020000 		.4byte	0x21c
+ 374 0180 8A010000 		.4byte	0x18a
+ 375 0184 0A       		.uleb128 0xa
+ 376 0185 01       		.uleb128 0x1
+ 377 0186 50       		.byte	0x50
+ 378 0187 01       		.uleb128 0x1
+ 379 0188 30       		.byte	0x30
+ 380 0189 00       		.byte	0
+ 381 018a 09       		.uleb128 0x9
+ 382 018b 6E000000 		.4byte	.LVL17
+ 383 018f 06020000 		.4byte	0x206
+ 384 0193 9D010000 		.4byte	0x19d
+ 385 0197 0A       		.uleb128 0xa
+ 386 0198 01       		.uleb128 0x1
+ 387 0199 50       		.byte	0x50
+ 388 019a 01       		.uleb128 0x1
+ 389 019b 30       		.byte	0x30
+ 390 019c 00       		.byte	0
+ 391 019d 09       		.uleb128 0x9
+ 392 019e 74000000 		.4byte	.LVL18
+ 393 01a2 11020000 		.4byte	0x211
+ 394 01a6 B0010000 		.4byte	0x1b0
+ 395 01aa 0A       		.uleb128 0xa
+ 396 01ab 01       		.uleb128 0x1
+ 397 01ac 50       		.byte	0x50
+ 398 01ad 01       		.uleb128 0x1
+ 399 01ae 30       		.byte	0x30
+ 400 01af 00       		.byte	0
+ 401 01b0 09       		.uleb128 0x9
+ 402 01b1 7C000000 		.4byte	.LVL19
+ 403 01b5 06020000 		.4byte	0x206
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 9
+
+
+ 404 01b9 C3010000 		.4byte	0x1c3
+ 405 01bd 0A       		.uleb128 0xa
+ 406 01be 01       		.uleb128 0x1
+ 407 01bf 50       		.byte	0x50
+ 408 01c0 01       		.uleb128 0x1
+ 409 01c1 30       		.byte	0x30
+ 410 01c2 00       		.byte	0
+ 411 01c3 09       		.uleb128 0x9
+ 412 01c4 82000000 		.4byte	.LVL20
+ 413 01c8 11020000 		.4byte	0x211
+ 414 01cc D6010000 		.4byte	0x1d6
+ 415 01d0 0A       		.uleb128 0xa
+ 416 01d1 01       		.uleb128 0x1
+ 417 01d2 50       		.byte	0x50
+ 418 01d3 01       		.uleb128 0x1
+ 419 01d4 30       		.byte	0x30
+ 420 01d5 00       		.byte	0
+ 421 01d6 09       		.uleb128 0x9
+ 422 01d7 88000000 		.4byte	.LVL21
+ 423 01db 1C020000 		.4byte	0x21c
+ 424 01df E9010000 		.4byte	0x1e9
+ 425 01e3 0A       		.uleb128 0xa
+ 426 01e4 01       		.uleb128 0x1
+ 427 01e5 50       		.byte	0x50
+ 428 01e6 01       		.uleb128 0x1
+ 429 01e7 30       		.byte	0x30
+ 430 01e8 00       		.byte	0
+ 431 01e9 0B       		.uleb128 0xb
+ 432 01ea 8E000000 		.4byte	.LVL22
+ 433 01ee 27020000 		.4byte	0x227
+ 434 01f2 0A       		.uleb128 0xa
+ 435 01f3 01       		.uleb128 0x1
+ 436 01f4 50       		.byte	0x50
+ 437 01f5 02       		.uleb128 0x2
+ 438 01f6 08       		.byte	0x8
+ 439 01f7 32       		.byte	0x32
+ 440 01f8 00       		.byte	0
+ 441 01f9 00       		.byte	0
+ 442 01fa 00       		.byte	0
+ 443 01fb 0C       		.uleb128 0xc
+ 444 01fc E8010000 		.4byte	.LASF17
+ 445 0200 E8010000 		.4byte	.LASF17
+ 446 0204 02       		.byte	0x2
+ 447 0205 32       		.byte	0x32
+ 448 0206 0C       		.uleb128 0xc
+ 449 0207 C4010000 		.4byte	.LASF18
+ 450 020b C4010000 		.4byte	.LASF18
+ 451 020f 03       		.byte	0x3
+ 452 0210 33       		.byte	0x33
+ 453 0211 0C       		.uleb128 0xc
+ 454 0212 7A000000 		.4byte	.LASF19
+ 455 0216 7A000000 		.4byte	.LASF19
+ 456 021a 04       		.byte	0x4
+ 457 021b 33       		.byte	0x33
+ 458 021c 0C       		.uleb128 0xc
+ 459 021d 08010000 		.4byte	.LASF20
+ 460 0221 08010000 		.4byte	.LASF20
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 10
+
+
+ 461 0225 05       		.byte	0x5
+ 462 0226 33       		.byte	0x33
+ 463 0227 0C       		.uleb128 0xc
+ 464 0228 3A000000 		.4byte	.LASF21
+ 465 022c 3A000000 		.4byte	.LASF21
+ 466 0230 06       		.byte	0x6
+ 467 0231 EC       		.byte	0xec
+ 468 0232 00       		.byte	0
+ 469              		.section	.debug_abbrev,"",%progbits
+ 470              	.Ldebug_abbrev0:
+ 471 0000 01       		.uleb128 0x1
+ 472 0001 11       		.uleb128 0x11
+ 473 0002 01       		.byte	0x1
+ 474 0003 25       		.uleb128 0x25
+ 475 0004 0E       		.uleb128 0xe
+ 476 0005 13       		.uleb128 0x13
+ 477 0006 0B       		.uleb128 0xb
+ 478 0007 03       		.uleb128 0x3
+ 479 0008 0E       		.uleb128 0xe
+ 480 0009 1B       		.uleb128 0x1b
+ 481 000a 0E       		.uleb128 0xe
+ 482 000b 55       		.uleb128 0x55
+ 483 000c 17       		.uleb128 0x17
+ 484 000d 11       		.uleb128 0x11
+ 485 000e 01       		.uleb128 0x1
+ 486 000f 10       		.uleb128 0x10
+ 487 0010 17       		.uleb128 0x17
+ 488 0011 00       		.byte	0
+ 489 0012 00       		.byte	0
+ 490 0013 02       		.uleb128 0x2
+ 491 0014 24       		.uleb128 0x24
+ 492 0015 00       		.byte	0
+ 493 0016 0B       		.uleb128 0xb
+ 494 0017 0B       		.uleb128 0xb
+ 495 0018 3E       		.uleb128 0x3e
+ 496 0019 0B       		.uleb128 0xb
+ 497 001a 03       		.uleb128 0x3
+ 498 001b 0E       		.uleb128 0xe
+ 499 001c 00       		.byte	0
+ 500 001d 00       		.byte	0
+ 501 001e 03       		.uleb128 0x3
+ 502 001f 24       		.uleb128 0x24
+ 503 0020 00       		.byte	0
+ 504 0021 0B       		.uleb128 0xb
+ 505 0022 0B       		.uleb128 0xb
+ 506 0023 3E       		.uleb128 0x3e
+ 507 0024 0B       		.uleb128 0xb
+ 508 0025 03       		.uleb128 0x3
+ 509 0026 08       		.uleb128 0x8
+ 510 0027 00       		.byte	0
+ 511 0028 00       		.byte	0
+ 512 0029 04       		.uleb128 0x4
+ 513 002a 16       		.uleb128 0x16
+ 514 002b 00       		.byte	0
+ 515 002c 03       		.uleb128 0x3
+ 516 002d 0E       		.uleb128 0xe
+ 517 002e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 11
+
+
+ 518 002f 0B       		.uleb128 0xb
+ 519 0030 3B       		.uleb128 0x3b
+ 520 0031 05       		.uleb128 0x5
+ 521 0032 49       		.uleb128 0x49
+ 522 0033 13       		.uleb128 0x13
+ 523 0034 00       		.byte	0
+ 524 0035 00       		.byte	0
+ 525 0036 05       		.uleb128 0x5
+ 526 0037 2E       		.uleb128 0x2e
+ 527 0038 01       		.byte	0x1
+ 528 0039 3F       		.uleb128 0x3f
+ 529 003a 19       		.uleb128 0x19
+ 530 003b 03       		.uleb128 0x3
+ 531 003c 0E       		.uleb128 0xe
+ 532 003d 3A       		.uleb128 0x3a
+ 533 003e 0B       		.uleb128 0xb
+ 534 003f 3B       		.uleb128 0x3b
+ 535 0040 0B       		.uleb128 0xb
+ 536 0041 27       		.uleb128 0x27
+ 537 0042 19       		.uleb128 0x19
+ 538 0043 49       		.uleb128 0x49
+ 539 0044 13       		.uleb128 0x13
+ 540 0045 8701     		.uleb128 0x87
+ 541 0047 19       		.uleb128 0x19
+ 542 0048 11       		.uleb128 0x11
+ 543 0049 01       		.uleb128 0x1
+ 544 004a 12       		.uleb128 0x12
+ 545 004b 06       		.uleb128 0x6
+ 546 004c 40       		.uleb128 0x40
+ 547 004d 18       		.uleb128 0x18
+ 548 004e 9742     		.uleb128 0x2117
+ 549 0050 19       		.uleb128 0x19
+ 550 0051 01       		.uleb128 0x1
+ 551 0052 13       		.uleb128 0x13
+ 552 0053 00       		.byte	0
+ 553 0054 00       		.byte	0
+ 554 0055 06       		.uleb128 0x6
+ 555 0056 34       		.uleb128 0x34
+ 556 0057 00       		.byte	0
+ 557 0058 03       		.uleb128 0x3
+ 558 0059 0E       		.uleb128 0xe
+ 559 005a 3A       		.uleb128 0x3a
+ 560 005b 0B       		.uleb128 0xb
+ 561 005c 3B       		.uleb128 0x3b
+ 562 005d 0B       		.uleb128 0xb
+ 563 005e 49       		.uleb128 0x49
+ 564 005f 13       		.uleb128 0x13
+ 565 0060 02       		.uleb128 0x2
+ 566 0061 17       		.uleb128 0x17
+ 567 0062 00       		.byte	0
+ 568 0063 00       		.byte	0
+ 569 0064 07       		.uleb128 0x7
+ 570 0065 0B       		.uleb128 0xb
+ 571 0066 01       		.byte	0x1
+ 572 0067 11       		.uleb128 0x11
+ 573 0068 01       		.uleb128 0x1
+ 574 0069 12       		.uleb128 0x12
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 12
+
+
+ 575 006a 06       		.uleb128 0x6
+ 576 006b 00       		.byte	0
+ 577 006c 00       		.byte	0
+ 578 006d 08       		.uleb128 0x8
+ 579 006e 898201   		.uleb128 0x4109
+ 580 0071 00       		.byte	0
+ 581 0072 11       		.uleb128 0x11
+ 582 0073 01       		.uleb128 0x1
+ 583 0074 31       		.uleb128 0x31
+ 584 0075 13       		.uleb128 0x13
+ 585 0076 00       		.byte	0
+ 586 0077 00       		.byte	0
+ 587 0078 09       		.uleb128 0x9
+ 588 0079 898201   		.uleb128 0x4109
+ 589 007c 01       		.byte	0x1
+ 590 007d 11       		.uleb128 0x11
+ 591 007e 01       		.uleb128 0x1
+ 592 007f 31       		.uleb128 0x31
+ 593 0080 13       		.uleb128 0x13
+ 594 0081 01       		.uleb128 0x1
+ 595 0082 13       		.uleb128 0x13
+ 596 0083 00       		.byte	0
+ 597 0084 00       		.byte	0
+ 598 0085 0A       		.uleb128 0xa
+ 599 0086 8A8201   		.uleb128 0x410a
+ 600 0089 00       		.byte	0
+ 601 008a 02       		.uleb128 0x2
+ 602 008b 18       		.uleb128 0x18
+ 603 008c 9142     		.uleb128 0x2111
+ 604 008e 18       		.uleb128 0x18
+ 605 008f 00       		.byte	0
+ 606 0090 00       		.byte	0
+ 607 0091 0B       		.uleb128 0xb
+ 608 0092 898201   		.uleb128 0x4109
+ 609 0095 01       		.byte	0x1
+ 610 0096 11       		.uleb128 0x11
+ 611 0097 01       		.uleb128 0x1
+ 612 0098 31       		.uleb128 0x31
+ 613 0099 13       		.uleb128 0x13
+ 614 009a 00       		.byte	0
+ 615 009b 00       		.byte	0
+ 616 009c 0C       		.uleb128 0xc
+ 617 009d 2E       		.uleb128 0x2e
+ 618 009e 00       		.byte	0
+ 619 009f 3F       		.uleb128 0x3f
+ 620 00a0 19       		.uleb128 0x19
+ 621 00a1 3C       		.uleb128 0x3c
+ 622 00a2 19       		.uleb128 0x19
+ 623 00a3 6E       		.uleb128 0x6e
+ 624 00a4 0E       		.uleb128 0xe
+ 625 00a5 03       		.uleb128 0x3
+ 626 00a6 0E       		.uleb128 0xe
+ 627 00a7 3A       		.uleb128 0x3a
+ 628 00a8 0B       		.uleb128 0xb
+ 629 00a9 3B       		.uleb128 0x3b
+ 630 00aa 0B       		.uleb128 0xb
+ 631 00ab 00       		.byte	0
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 13
+
+
+ 632 00ac 00       		.byte	0
+ 633 00ad 00       		.byte	0
+ 634              		.section	.debug_loc,"",%progbits
+ 635              	.Ldebug_loc0:
+ 636              	.LLST0:
+ 637 0000 04000000 		.4byte	.LVL0
+ 638 0004 0A000000 		.4byte	.LVL1
+ 639 0008 0200     		.2byte	0x2
+ 640 000a 30       		.byte	0x30
+ 641 000b 9F       		.byte	0x9f
+ 642 000c 0A000000 		.4byte	.LVL1
+ 643 0010 1C000000 		.4byte	.LVL5
+ 644 0014 0100     		.2byte	0x1
+ 645 0016 56       		.byte	0x56
+ 646 0017 1E000000 		.4byte	.LVL6
+ 647 001b 94000000 		.4byte	.LFE32
+ 648 001f 0100     		.2byte	0x1
+ 649 0021 56       		.byte	0x56
+ 650 0022 00000000 		.4byte	0
+ 651 0026 00000000 		.4byte	0
+ 652              	.LLST1:
+ 653 002a 04000000 		.4byte	.LVL0
+ 654 002e 0A000000 		.4byte	.LVL1
+ 655 0032 0200     		.2byte	0x2
+ 656 0034 31       		.byte	0x31
+ 657 0035 9F       		.byte	0x9f
+ 658 0036 0A000000 		.4byte	.LVL1
+ 659 003a 94000000 		.4byte	.LFE32
+ 660 003e 0100     		.2byte	0x1
+ 661 0040 55       		.byte	0x55
+ 662 0041 00000000 		.4byte	0
+ 663 0045 00000000 		.4byte	0
+ 664              	.LLST2:
+ 665 0049 12000000 		.4byte	.LVL4
+ 666 004d 26000000 		.4byte	.LVL8
+ 667 0051 0100     		.2byte	0x1
+ 668 0053 50       		.byte	0x50
+ 669 0054 00000000 		.4byte	0
+ 670 0058 00000000 		.4byte	0
+ 671              		.section	.debug_aranges,"",%progbits
+ 672 0000 1C000000 		.4byte	0x1c
+ 673 0004 0200     		.2byte	0x2
+ 674 0006 00000000 		.4byte	.Ldebug_info0
+ 675 000a 04       		.byte	0x4
+ 676 000b 00       		.byte	0
+ 677 000c 0000     		.2byte	0
+ 678 000e 0000     		.2byte	0
+ 679 0010 00000000 		.4byte	.LFB32
+ 680 0014 94000000 		.4byte	.LFE32-.LFB32
+ 681 0018 00000000 		.4byte	0
+ 682 001c 00000000 		.4byte	0
+ 683              		.section	.debug_ranges,"",%progbits
+ 684              	.Ldebug_ranges0:
+ 685 0000 00000000 		.4byte	.LFB32
+ 686 0004 94000000 		.4byte	.LFE32
+ 687 0008 00000000 		.4byte	0
+ 688 000c 00000000 		.4byte	0
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 14
+
+
+ 689              		.section	.debug_line,"",%progbits
+ 690              	.Ldebug_line0:
+ 691 0000 B7000000 		.section	.debug_str,"MS",%progbits,1
+ 691      02008200 
+ 691      00000201 
+ 691      FB0E0D00 
+ 691      01010101 
+ 692              	.LASF6:
+ 693 0000 6C6F6E67 		.ascii	"long long int\000"
+ 693      206C6F6E 
+ 693      6720696E 
+ 693      7400
+ 694              	.LASF8:
+ 695 000e 756E7369 		.ascii	"unsigned int\000"
+ 695      676E6564 
+ 695      20696E74 
+ 695      00
+ 696              	.LASF1:
+ 697 001b 756E7369 		.ascii	"unsigned char\000"
+ 697      676E6564 
+ 697      20636861 
+ 697      7200
+ 698              	.LASF14:
+ 699 0029 636F6C6F 		.ascii	"color_state\000"
+ 699      725F7374 
+ 699      61746500 
+ 700              	.LASF26:
+ 701 0035 6D61696E 		.ascii	"main\000"
+ 701      00
+ 702              	.LASF21:
+ 703 003a 43794465 		.ascii	"CyDelay\000"
+ 703      6C617900 
+ 704              	.LASF25:
+ 705 0042 75696E74 		.ascii	"uint8\000"
+ 705      3800
+ 706              	.LASF16:
+ 707 0048 63757272 		.ascii	"current_button_state\000"
+ 707      656E745F 
+ 707      62757474 
+ 707      6F6E5F73 
+ 707      74617465 
+ 708              	.LASF7:
+ 709 005d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 709      206C6F6E 
+ 709      6720756E 
+ 709      7369676E 
+ 709      65642069 
+ 710              	.LASF9:
+ 711 0074 666C6F61 		.ascii	"float\000"
+ 711      7400
+ 712              	.LASF19:
+ 713 007a 4C45445F 		.ascii	"LED_Green_Write\000"
+ 713      47726565 
+ 713      6E5F5772 
+ 713      69746500 
+ 714              	.LASF11:
+ 715 008a 63686172 		.ascii	"char\000"
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 15
+
+
+ 715      00
+ 716              	.LASF24:
+ 717 008f 433A5C55 		.ascii	"C:\\Users\\STUDENT\\Documents\\PSoC Creator\\nigger"
+ 717      73657273 
+ 717      5C535455 
+ 717      44454E54 
+ 717      5C446F63 
+ 718 00bd 5C446573 		.ascii	"\\Design01.cydsn\000"
+ 718      69676E30 
+ 718      312E6379 
+ 718      64736E00 
+ 719              	.LASF15:
+ 720 00cd 6C617374 		.ascii	"last_button_state\000"
+ 720      5F627574 
+ 720      746F6E5F 
+ 720      73746174 
+ 720      6500
+ 721              	.LASF23:
+ 722 00df 6D61696E 		.ascii	"main.c\000"
+ 722      2E6300
+ 723              	.LASF4:
+ 724 00e6 6C6F6E67 		.ascii	"long int\000"
+ 724      20696E74 
+ 724      00
+ 725              	.LASF5:
+ 726 00ef 6C6F6E67 		.ascii	"long unsigned int\000"
+ 726      20756E73 
+ 726      69676E65 
+ 726      6420696E 
+ 726      7400
+ 727              	.LASF10:
+ 728 0101 646F7562 		.ascii	"double\000"
+ 728      6C6500
+ 729              	.LASF20:
+ 730 0108 4C45445F 		.ascii	"LED_Blue_Write\000"
+ 730      426C7565 
+ 730      5F577269 
+ 730      746500
+ 731              	.LASF22:
+ 732 0117 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 732      43313120 
+ 732      352E342E 
+ 732      31203230 
+ 732      31363036 
+ 733 014a 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 733      20726576 
+ 733      6973696F 
+ 733      6E203233 
+ 733      37373135 
+ 734 017d 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 734      66756E63 
+ 734      74696F6E 
+ 734      2D736563 
+ 734      74696F6E 
+ 735              	.LASF3:
+ 736 01a5 73686F72 		.ascii	"short unsigned int\000"
+ 736      7420756E 
+ARM GAS  C:\Users\STUDENT\AppData\Local\Temp\cceE3uMM.s 			page 16
+
+
+ 736      7369676E 
+ 736      65642069 
+ 736      6E7400
+ 737              	.LASF0:
+ 738 01b8 7369676E 		.ascii	"signed char\000"
+ 738      65642063 
+ 738      68617200 
+ 739              	.LASF18:
+ 740 01c4 4C45445F 		.ascii	"LED_Red_Write\000"
+ 740      5265645F 
+ 740      57726974 
+ 740      6500
+ 741              	.LASF13:
+ 742 01d2 6C6F6E67 		.ascii	"long double\000"
+ 742      20646F75 
+ 742      626C6500 
+ 743              	.LASF2:
+ 744 01de 73686F72 		.ascii	"short int\000"
+ 744      7420696E 
+ 744      7400
+ 745              	.LASF17:
+ 746 01e8 42757474 		.ascii	"Button_Read\000"
+ 746      6F6E5F52 
+ 746      65616400 
+ 747              	.LASF12:
+ 748 01f4 73697A65 		.ascii	"sizetype\000"
+ 748      74797065 
+ 748      00
+ 749              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

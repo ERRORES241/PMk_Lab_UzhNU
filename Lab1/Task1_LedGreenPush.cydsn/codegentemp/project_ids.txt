@@ -1,0 +1,9 @@
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|1108dfe6-919a-40d5-b32e-c4c86d82bd02
+C:\Users\STUDENT\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|57ea7e7b-d546-4d9d-9562-90435fe28e70
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|ab6e32e5-1620-4909-9519-6c96f3d068d4
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|cda43e3f-1461-4bce-9c93-e16977f8e7de
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|effb066d-b6a5-41d5-bd76-172aaeb09b7e
+C:\Users\STUDENT\Documents\PSoC Creator\nigger\Design01.cydsn\Design01.cyprj|0f3927ba-f053-43a6-bc8a-eeda22d7326d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\psoc4\PSoC4AnalogDevice\psoc4arch.cydsn\psoc4arch.cyprj|5f4d4a97-337f-4bee-b3b7-c6d622a1f9b2
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|44b69355-8bb9-4cc2-a0fa-a2701f0b874f
+C:\Users\STUDENT\Documents\PSoC Creator\nigger\Task1.cydsn\Task1.cyprj|f0be4ffa-ac8d-4116-b2f5-9fa29af7ce01
