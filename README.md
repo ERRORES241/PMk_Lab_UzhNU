@@ -20,7 +20,7 @@
 
 1. **Клонуйте репозиторій:**
   bash
-   git clone [https://github.com/ERRORES241/PMk_Lab_UzhNU.git](https://github.com/ERRORES241/PMk_Lab_UzhNU.git)
+   ''' git clone [https://github.com/ERRORES241/PMk_Lab_UzhNU.git](https://github.com/ERRORES241/PMk_Lab_UzhNU.git) '''
 
 
 2. **Відкрийте робочий простір:**
