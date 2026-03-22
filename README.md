@@ -19,7 +19,9 @@
 ### 🚀 Як запустити проєкт
 
 1. **Клонуйте репозиторій:**
-  ``` bash git clone [https://github.com/ERRORES241/PMk_Lab_UzhNU.git](https://github.com/ERRORES241/PMk_Lab_UzhNU.git) ```
+```bash
+git clone https://github.com/ERRORES241/PMk_Lab_UzhNU.git
+````
 
 
 2. **Відкрийте робочий простір:**
