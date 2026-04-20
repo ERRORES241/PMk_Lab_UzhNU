@@ -1,54 +1,45 @@
-# Лабораторні роботи з курсу «Програмування мікроконтролерів» (ПМк)
-## Ужгородський національний університет (УжНУ)
+# Lab Work №3 / Лабораторна робота №3
 
-Цей репозиторій містить проєкти для середовища розробки **PSoC Creator 4.4**, розроблені в межах вивчення мікроконтролерів та програмованих логічних систем.
+This directory contains the implementation of Laboratory Work №3, focused on interfacing a matrix keypad with the PSoC microcontroller.
 
-**Лабораторна робота №3: Використання матричної клавіатури для введення інформації**
-У цій роботі реалізовано алгоритм сканування матричної клавіатури (рядків та стовпців) для визначення натиснутої клавіші. Отримана інформація передається на комп'ютер через інтерфейс UART, а також відображається за допомогою керування вбудованими світлодіодами (RGB LED).
+---
 
-### 🛠 Необхідне програмне забезпечення
+## English Version
 
-Для роботи з проєктами вам знадобиться:
-1. **PSoC Creator 4.4** — основне середовище розробки (IDE).
-2. **PSoC Programmer 3.29.1** (або новіша версія) — постачається разом з IDE або окремо для прошивки плат.
-3. **Peripheral Driver Library (PDL)** — зазвичай входить до складу інсталятора Creator.
+### 1. About the Lab
+The primary goal of this project is to understand the principles of connecting and scanning a matrix keypad using the PSoC Creator environment. The project demonstrates:
+* Efficient I/O usage by organizing buttons into rows and columns.
+* Real-time button scanning and debouncing logic.
+* Interaction between user input and system outputs (LED control and UART communication).
 
-### 📥 Як завантажити та встановити
+### 2. Tools and Technologies
+* **Software:** PSoC Creator 4.4.
+* **Hardware:** PSoC 4 series microcontroller (Pioneer Kit).
+* **Language:** C.
+* **Components used:** Digital Bidirectional Pins (for columns), Digital Input Pins (for rows), Software Transmit UART (for terminal output), and RGB LED.
 
-1. Перейдіть на офіційний сайт [Infineon (Cypress)](https://www.infineon.com/cms/en/design-support/tools/sdk/psoc-software/psoc-creator/).
-2. Завантажте інсталятор **PSoC Creator 4.4**. Зверніть увагу, що для завантаження може знадобитися реєстрація.
-3. Встановіть пакет "Complete", щоб мати всі необхідні драйвери та компоненти.
+### 3. Implementation Details
+* **Hardware Configuration:** In `TopDesign.cysch`, columns are configured as open-drain (drives low), and rows are set as high-impedance digital inputs with internal pull-up resistors.
+* **Scanning Algorithm:** The firmware iteratively pulls each column low and reads the state of all rows to identify which specific key is pressed.
+* **Logic:** The code includes a state machine that detects new key presses, sends the button index to a serial terminal via UART, and changes the RGB LED color based on the specific button pressed.
 
-### 🚀 Як запустити проєкт
+---
 
-1. **Клонуйте репозиторій:**
-```bash
-git clone https://github.com/ERRORES241/PMk_Lab_UzhNU.git
-```
+## Українська версія
 
-2. **Відкрийте робочий простір:**
-    
-    Знайдіть у кореневій папці файл із розширенням `.cywrk` (наприклад, `Labs_Workspace.cywrk`) і відкрийте його подвійним кліком. PSoC Creator автоматично завантажить усі пов'язані проєкти.
-    
-3. **Вибір лабораторної роботи:**
-    
-    У вікні **Workspace Explorer** (зазвичай ліворуч) виберіть потрібний проєкт (папка з розширенням `.cydsn`). Натисніть на нього правою кнопкою миші та виберіть **Set As Active Project**.
-    
-4. **Побудова (Build):**
-    
-    Натисніть `Shift + F6` або виберіть у меню `Build > Build [Назва_Проєкту]`. Це згенерує необхідні файли конфігурації та скомпілює код.
-    
-5. **Прошивка (Program):**
-    
-    Підключіть вашу налагоджувальну плату (наприклад, CY8CKIT-059) до USB-порту. Натисніть `Ctrl + F5` або кнопку **Program** на панелі інструментів.
-    
+### 1. Про що лабораторна робота
+Основною метою цього проєкту є вивчення принципів підключення та сканування матричної клавіатури за допомогою середовища PSoC Creator. Проєкт демонструє:
+* Ефективне використання виводів (I/O) шляхом організації кнопок у рядки та стовпці.
+* Логіку сканування кнопок у реальному часі.
+* Взаємодію між вводом користувача та виходами системи (керування світлодіодом та зв'язок через UART).
 
-## 📂 Структура проєкту
+### 2. За допомогою чого зроблена
+* **Програмне забезпечення:** PSoC Creator 4.4.
+* **Апаратне забезпечення:** Мікроконтролер серії PSoC 4 (Pioneer Kit).
+* **Мова програмування:** C.
+* **Використані компоненти:** Digital Bidirectional Pins (для стовпців), Digital Input Pins (для рядків), Software Transmit UART (для виводу в термінал) та RGB LED.
 
-- `*.cydsn` — папки з конкретними лабораторними роботами.
-    
-- `TopDesign.cysch` — графічна схема підключення внутрішніх компонентів PSoC (матрична клавіатура, UART, LED).
-    
-- `main.c` — основний файл із логікою програми на мові C (алгоритм опитування матриці клавіш).
-    
-- `Design Wide Resources (*.cydwr)` — налаштування пінів для підключення рядків та стовпців клавіатури, годинників та переривань.
+### 3. Як зроблена (реалізація)
+* **Апаратна конфігурація:** У файлі `TopDesign.cysch` стовпці налаштовані як "open-drain (drives low)", а рядки — як цифрові входи з високим опором (high-impedance) та внутрішніми підтягуючими резисторами.
+* **Алгоритм сканування:** Прошивка ітеративно подає низький рівень на кожен стовпець і зчитує стан усіх рядків, щоб визначити, яка саме клавіша натиснута.
+* **Логіка:** Код містить обробник станів, який фіксує натискання, надсилає номер кнопки в термінал через UART та змінює колір RGB-світлодіода залежно від натиснутої клавіші.
