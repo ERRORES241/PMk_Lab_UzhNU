@@ -7,6 +7,7 @@ static uint8_t LED_NUM[] = {
 
 #define SEG_n    0xAB
 #define SEG_I    0xF9
+#define SEG_A    0x88
 #define SEG_OFF  0xFF
 
 static volatile uint8_t disp_buf[8];
@@ -14,7 +15,6 @@ static volatile uint8_t disp_count = 8;
 static volatile uint8_t led_counter = 0;
 static volatile uint32_t blink_timer = 0;
 
-static const uint8_t SCROLL_SYMS[4] = {0xAB, 0xF9, 0x88, 0x88};
 static void FourDigit74HC595_sendData(uint8_t data)
 {
     for (uint8_t i = 0; i < 8; i++)
@@ -37,11 +37,12 @@ CY_ISR(Timer_Int_Handler2)
 {
     blink_timer++;
 
-    uint8_t offset = (blink_timer / 500) % 4;
-    disp_buf[0] = SCROLL_SYMS[(4 - offset) % 4];
-    disp_buf[1] = SCROLL_SYMS[(5 - offset) % 4];
-    disp_buf[2] = SCROLL_SYMS[(6 - offset) % 4];
-    disp_buf[3] = SCROLL_SYMS[(7 - offset) % 4];
+    uint8_t a_pos = 4 + (blink_timer / 500) % 4;
+    disp_buf[4] = SEG_OFF;
+    disp_buf[5] = SEG_OFF;
+    disp_buf[6] = SEG_OFF;
+    disp_buf[7] = SEG_OFF;
+    disp_buf[a_pos] = SEG_A;
 
     FourDigit74HC595_sendOneDigit(led_counter, disp_buf[led_counter]);
 
@@ -54,11 +55,14 @@ int main(void)
 {
     CyGlobalIntEnable;
 
-        disp_buf[4] = 0x88;
-        disp_buf[5] = SEG_OFF;
-        disp_buf[6] = SEG_OFF;
-        disp_buf[7] = SEG_OFF;
-
+    disp_buf[0] = SEG_n;
+    disp_buf[1] = SEG_I;
+    disp_buf[2] = LED_NUM[9];
+    disp_buf[3] = LED_NUM[9];
+    disp_buf[4] = SEG_A;
+    disp_buf[5] = SEG_OFF;
+    disp_buf[6] = SEG_OFF;
+    disp_buf[7] = SEG_OFF;
 
     Timer_Int_StartEx(Timer_Int_Handler2);
     Timer_Start();
